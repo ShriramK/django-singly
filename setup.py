@@ -10,7 +10,7 @@ import sys
 name = 'django-singly'
 package = 'singly'
 description = 'A reusable Django app for Singly'
-url = 'http://github.com/sinchok/django-singly/'
+url = 'http://github.com/Singly/django-singly/'
 author = 'Chris Sinchok'
 author_email = 'chris@sinchok.com'
 license = 'BSD'

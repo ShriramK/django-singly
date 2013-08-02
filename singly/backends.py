@@ -25,8 +25,8 @@ class SinglyBackend(object):
         response = requests.post('https://api.singly.com/oauth/access_token', data=params)
 
         if response.status_code == 200:
-            access_token = response.json.get('access_token')
-            account = response.json.get('account')
+            access_token = response.json().get('access_token')
+            account = response.json().get('account')
 
             try:
                 profile = SinglyProfile.objects.get(account=account)
@@ -46,16 +46,16 @@ class SinglyBackend(object):
                 user_kwargs = {'username': account}
 
                 if profile_response.status_code == 200:
-                    if 'email' in profile_response.json:
-                        user_kwargs['username'] = profile_response.json['email']
-                    elif 'name' in profile_response.json:
-                        user_kwargs['username'] = profile_response.json['name'].lower().replace(' ', '')
-                    if profile_response.json.get('name'):
+                    if 'email' in profile_response.json():
+                        user_kwargs['username'] = profile_response.json()['email']
+                    elif 'name' in profile_response.json():
+                        user_kwargs['username'] = profile_response.json()['name'].lower().replace(' ', '')
+                    if profile_response.json().get('name'):
                         try:
-                            user_kwargs['first_name'], user_kwargs['last_name'] = profile_response.json['name'].split(' ')
+                            user_kwargs['first_name'], user_kwargs['last_name'] = profile_response.json()['name'].split(' ')
                         except:
                             pass
-                    user_kwargs['email'] = profile_response.json.get('email')
+                    user_kwargs['email'] = profile_response.json().get('email')
 
                 user = User(**user_kwargs)
                 user.save()
